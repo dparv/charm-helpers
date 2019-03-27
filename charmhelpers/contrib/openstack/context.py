@@ -1935,3 +1935,20 @@ class VersionsContext(OSContextGenerator):
         return {
             'openstack_release': ostack,
             'operating_system_release': osystem}
+
+
+class LogrotateContext(OSContextGenerator):
+    """Common context generator for logrotate."""
+
+    def __init__(self, location=None, interval=None, count=None):
+        self.location = location
+        self.interval = interval
+        self.count = ('rotate %s' % count)
+
+    def __call__(self):
+        ctxt = {
+            'logrotate_logs_location': self.location,
+            'logrotate_interval': self.interval,
+            'logrotate_count': self.count,
+        }
+        return ctxt
